@@ -7,7 +7,7 @@ from dataclasses import asdict
 import json
 from pathlib import Path
 
-logger = logging.getLogger("add-pipeline-info")
+logger = logging.getLogger("database-dataset")
 
 logger.setLevel(logging.DEBUG)
 
