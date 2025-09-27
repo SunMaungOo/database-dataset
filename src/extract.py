@@ -66,13 +66,14 @@ def main()->int:
         with output_file_path.open(mode="w") as file:
             json.dump([asdict(dataset) for dataset in datasets],file,indent=4)
 
-        logger.info(f"Saving pipeline info to {OUTPUT_FILE_PATH}:success")
+        logger.info(f"Saving dataset to {OUTPUT_FILE_PATH}:success")
 
     except:
-        logger.info(f"Saving pipeline info to {OUTPUT_FILE_PATH}:fail")
+        logger.info(f"Saving dataset to {OUTPUT_FILE_PATH}:fail")
 
         return -1
 
+    return 0
 
 if __name__=="__main__":
     sys.exit(main())

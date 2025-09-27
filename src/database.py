@@ -1,8 +1,10 @@
 import urllib
 from sqlalchemy import create_engine,text
 from sqlalchemy.engine import Result
-from typing import Optional
+from typing import Optional,List,Tuple,Any
 from config import DB_TYPE,MSSQL_DEFAULT_PORT,ORACLE_DEFAULT_PORT,INVALID_PORT
+
+type DatabaseResult = List[Tuple[Any,...]]
 
 def get_connection_string(host:str,\
                           database_name:str,\
@@ -53,12 +55,14 @@ def test_connection(connection_str:str)->bool:
     except:
         return False
     
-def query(connection_str:str,query:str)->Optional[Result]:
+def query(connection_str:str,query:str)->Optional[DatabaseResult]:
     
     try:
         engine = create_engine(connection_str)
 
         with engine.connect() as connection:
-            return connection.conn.execute(text(query))
+            result = connection.execute(text(query))
+
+            return [tuple(row) for row in result]
     except:
         return None
